@@ -94,7 +94,7 @@ class ExtendedImageGesturePageView extends StatefulWidget {
     CanMovePage? canMovePage,
     CanScrollPage? canScrollPage,
     required this.childrenDelegate,
-  })   : controller = controller ?? _defaultPageController,
+  })  : controller = controller ?? _defaultPageController,
         physics = _defaultScrollPhysics,
         canMovePage = canMovePage ?? _defaultCanMovePage,
         canScrollPage = canScrollPage ?? _defaultCanScrollPage,

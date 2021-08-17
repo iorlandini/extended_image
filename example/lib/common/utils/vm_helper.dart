@@ -79,7 +79,7 @@ class MyMemoryUsage {
     required int externalUsage,
     required int heapCapacity,
     required int heapUsage,
-  })   : dataTime = DateTime.now(),
+  })  : dataTime = DateTime.now(),
         externalUsage = externalUsage / 1024 / 1024,
         heapCapacity = heapCapacity / 1024 / 1024,
         heapUsage = heapUsage / 1024 / 1024;
