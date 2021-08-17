@@ -184,6 +184,18 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
   Rect _initCropRect(Rect rect) {
     Rect cropRect = _editActionDetails!.getRectWithScale(rect);
 
+    ///draw the initial crop rect based on the fixedSize
+    if (_editorConfig!.fixedSize != null) {
+      final double ratio = (rect.right - rect.left) /
+          widget.extendedImageState.extendedImageInfo!.image.width;
+      cropRect = Rect.fromCenter(
+        center: cropRect.center,
+        width: _editorConfig!.fixedSize!.width * ratio,
+        height: _editorConfig!.fixedSize!.height * ratio,
+      );
+      return cropRect;
+    }
+
     if (_editActionDetails!.cropAspectRatio != null) {
       final double aspectRatio = _editActionDetails!.cropAspectRatio!;
       double width = cropRect.width / aspectRatio;
@@ -215,6 +227,11 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
     final double scaleDelta = details.scale / _detailsScale;
     final bool zoomOut = scaleDelta < 1;
     final bool zoomIn = scaleDelta > 1;
+
+    ///don't scale it if fixedSize is set
+    if ((zoomOut || zoomIn) && (_editorConfig!.fixedSize != null)) {
+      return;
+    }
 
     _detailsScale = details.scale;
 
