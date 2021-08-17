@@ -376,12 +376,14 @@ class EditorConfig {
     this.cropAspectRatio = CropAspectRatios.custom,
     this.initCropRectType = InitCropRectType.imageRect,
     this.cropLayerPainter = const EditorCropLayerPainter(),
+    this.panSpeed = 1.0,
     this.speed = 1.0,
     this.hitTestBehavior = HitTestBehavior.deferToChild,
     this.editActionDetailsIsChanged,
   })  : assert(lineHeight > 0.0),
         assert(hitTestSize > 0.0),
         assert(maxScale > 0.0),
+        assert(panSpeed > 0.0),
         assert(speed > 0.0);
 
   /// Call when EditActionDetails is changed
@@ -436,6 +438,9 @@ class EditorConfig {
 
   /// Custom crop layer
   final EditorCropLayerPainter cropLayerPainter;
+
+  /// Speed for pan
+  final double panSpeed;
 
   /// Speed for zoom/pan
   final double speed;

@@ -223,7 +223,8 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
     }
     double totalScale = _startingScale * details.scale * _editorConfig!.speed;
     final Offset delta =
-        details.focalPoint * _editorConfig!.speed - _startingOffset;
+        (details.focalPoint * _editorConfig!.speed - _startingOffset) *
+            _editorConfig!.panSpeed;
     final double scaleDelta = details.scale / _detailsScale;
     final bool zoomOut = scaleDelta < 1;
     final bool zoomIn = scaleDelta > 1;
