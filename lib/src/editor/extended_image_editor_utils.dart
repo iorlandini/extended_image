@@ -362,6 +362,7 @@ class EditActionDetails {
 
 class EditorConfig {
   EditorConfig({
+    this.initialPosition,
     this.fixedSize,
     this.maxScale = 5.0,
     this.cropRectPadding = const EdgeInsets.all(20.0),
@@ -391,6 +392,9 @@ class EditorConfig {
 
   /// How to behave during hit tests.
   final HitTestBehavior hitTestBehavior;
+
+  /// Initial position
+  final Offset? initialPosition;
 
   /// Fixed size
   final Size? fixedSize;

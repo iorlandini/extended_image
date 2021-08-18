@@ -188,6 +188,17 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
     if (_editorConfig!.fixedSize != null) {
       final double ratio = (rect.right - rect.left) /
           widget.extendedImageState.extendedImageInfo!.image.width;
+
+      if (_editorConfig!.initialPosition != null) {
+        cropRect = Rect.fromLTWH(
+          (_editorConfig!.initialPosition!.dx * ratio) + cropRect.left,
+          (_editorConfig!.initialPosition!.dy * ratio) + cropRect.top,
+          _editorConfig!.fixedSize!.width * ratio,
+          _editorConfig!.fixedSize!.height * ratio,
+        );
+        return cropRect;
+      }
+
       cropRect = Rect.fromCenter(
         center: cropRect.center,
         width: _editorConfig!.fixedSize!.width * ratio,
