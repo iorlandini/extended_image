@@ -184,8 +184,8 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
   Rect _initCropRect(Rect rect) {
     Rect cropRect = _editActionDetails!.getRectWithScale(rect);
 
-    ///draw the initial crop rect based on the fixedSize
-    if (_editorConfig!.fixedSize != null) {
+    ///draw the initial crop rect based on the initialSize
+    if (_editorConfig!.initialSize != null) {
       final double ratio = (rect.right - rect.left) /
           widget.extendedImageState.extendedImageInfo!.image.width;
 
@@ -193,16 +193,16 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
         cropRect = Rect.fromLTWH(
           (_editorConfig!.initialPosition!.dx * ratio) + cropRect.left,
           (_editorConfig!.initialPosition!.dy * ratio) + cropRect.top,
-          _editorConfig!.fixedSize!.width * ratio,
-          _editorConfig!.fixedSize!.height * ratio,
+          _editorConfig!.initialSize!.width * ratio,
+          _editorConfig!.initialSize!.height * ratio,
         );
         return cropRect;
       }
 
       cropRect = Rect.fromCenter(
         center: cropRect.center,
-        width: _editorConfig!.fixedSize!.width * ratio,
-        height: _editorConfig!.fixedSize!.height * ratio,
+        width: _editorConfig!.initialSize!.width * ratio,
+        height: _editorConfig!.initialSize!.height * ratio,
       );
       return cropRect;
     }
@@ -240,11 +240,6 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
     final bool zoomOut = scaleDelta < 1;
     final bool zoomIn = scaleDelta > 1;
 
-    ///don't scale it if fixedSize is set
-    if ((zoomOut || zoomIn) && (_editorConfig!.fixedSize != null)) {
-      return;
-    }
-
     _detailsScale = details.scale;
 
     _startingOffset = details.focalPoint;
@@ -259,6 +254,7 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
     }
 
     totalScale = min(totalScale, _editorConfig!.maxScale);
+    totalScale = max(totalScale, _editorConfig!.minScale);
 
     if (mounted && (scaleDelta != 1.0 || delta != Offset.zero)) {
       setState(() {

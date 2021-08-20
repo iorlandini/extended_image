@@ -363,8 +363,9 @@ class EditActionDetails {
 class EditorConfig {
   EditorConfig({
     this.initialPosition,
-    this.fixedSize,
+    this.initialSize,
     this.maxScale = 5.0,
+    this.minScale = 0.0,
     this.cropRectPadding = const EdgeInsets.all(20.0),
     this.cornerSize = const Size(30.0, 5.0),
     this.cornerColor,
@@ -396,11 +397,14 @@ class EditorConfig {
   /// Initial position
   final Offset? initialPosition;
 
-  /// Fixed size
-  final Size? fixedSize;
+  /// Initial size
+  final Size? initialSize;
 
   /// Max scale
   final double maxScale;
+
+  /// Min scale
+  final double minScale;
 
   /// Padding of crop rect to layout rect
   /// it's refer to initial image rect and crop rect
