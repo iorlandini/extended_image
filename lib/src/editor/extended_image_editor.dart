@@ -254,7 +254,10 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
     }
 
     totalScale = min(totalScale, _editorConfig!.maxScale);
-    totalScale = max(totalScale, _editorConfig!.minScale);
+
+    if (_editorConfig!.minScale != 0.0) {
+      totalScale = max(totalScale, _editorConfig!.minScale);
+    }
 
     if (mounted && (scaleDelta != 1.0 || delta != Offset.zero)) {
       setState(() {

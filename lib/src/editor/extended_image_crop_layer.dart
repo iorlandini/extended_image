@@ -61,9 +61,15 @@ class ExtendedImageCropLayerState extends State<ExtendedImageCropLayer>
   void initState() {
     super.initState();
     _pointerDown = false;
-    _rectTweenController = AnimationController(
-        vsync: this, duration: widget.editorConfig.animationDuration)
-      ..addListener(_doCropAutoCenterAnimation);
+    _rectTweenController =
+        AnimationController(vsync: this, duration: Duration.zero)
+          ..addListener(_doCropAutoCenterAnimation);
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      _startTimer(Duration.zero);
+      await Future<dynamic>.delayed(Duration.zero);
+      _rectTweenController.duration = widget.editorConfig.animationDuration;
+    });
   }
 
   @override
@@ -276,7 +282,8 @@ class ExtendedImageCropLayerState extends State<ExtendedImageCropLayer>
 
   void moveUpdate(_MoveType moveType, Offset delta) {
     ///don't resize it if initialSize is set
-    if (widget.editorConfig.initialSize != null) {
+    if ((widget.editorConfig.initialSize != null) &&
+        (widget.editorConfig.minScale != 0.0)) {
       return;
     }
 
@@ -488,12 +495,13 @@ class ExtendedImageCropLayerState extends State<ExtendedImageCropLayer>
     }
   }
 
-  void _startTimer() {
+  void _startTimer([Duration? tickerDuration]) {
     _timer?.cancel();
     if (isAnimating) {
       return;
     }
-    _timer = Timer.periodic(widget.editorConfig.tickerDuration, (Timer timer) {
+    _timer = Timer.periodic(
+        tickerDuration ?? widget.editorConfig.tickerDuration, (Timer timer) {
       _timer?.cancel();
 
       //move to center
