@@ -186,7 +186,7 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
   Rect _initCropRect(Rect rect) {
     Rect cropRect = _editActionDetails!.getRectWithScale(rect);
 
-    ///draw the initial crop rect based on the initialCropRect
+    ///draw the initialCropRect if set
     if (_editorConfig!.initialCropRect != null) {
       final double ratio = (rect.right - rect.left) /
           widget.extendedImageState.extendedImageInfo!.image.width;
