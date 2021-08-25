@@ -99,6 +99,8 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
       invertColors: widget.extendedImageState.invertColors,
       filterQuality: extendedImage.filterQuality,
       editActionDetails: _editActionDetails,
+      beforePaintImage: widget.extendedImageState.imageWidget.beforePaintImage,
+      afterPaintImage: widget.extendedImageState.imageWidget.afterPaintImage,
     );
 
     Widget result = GestureDetector(
