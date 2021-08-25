@@ -184,25 +184,25 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
   Rect _initCropRect(Rect rect) {
     Rect cropRect = _editActionDetails!.getRectWithScale(rect);
 
-    ///draw the initial crop rect based on the initialSize
-    if (_editorConfig!.initialSize != null) {
+    ///draw the initial crop rect based on the initialCropRect
+    if (_editorConfig!.initialCropRect != null) {
       final double ratio = (rect.right - rect.left) /
           widget.extendedImageState.extendedImageInfo!.image.width;
 
-      if (_editorConfig!.initialPosition != null) {
+      if (_editorConfig!.initialCropRect != null) {
         cropRect = Rect.fromLTWH(
-          (_editorConfig!.initialPosition!.dx * ratio) + cropRect.left,
-          (_editorConfig!.initialPosition!.dy * ratio) + cropRect.top,
-          _editorConfig!.initialSize!.width * ratio,
-          _editorConfig!.initialSize!.height * ratio,
+          (_editorConfig!.initialCropRect!.left * ratio) + cropRect.left,
+          (_editorConfig!.initialCropRect!.top * ratio) + cropRect.top,
+          _editorConfig!.initialCropRect!.width * ratio,
+          _editorConfig!.initialCropRect!.height * ratio,
         );
         return cropRect;
       }
 
       cropRect = Rect.fromCenter(
         center: cropRect.center,
-        width: _editorConfig!.initialSize!.width * ratio,
-        height: _editorConfig!.initialSize!.height * ratio,
+        width: _editorConfig!.initialCropRect!.width * ratio,
+        height: _editorConfig!.initialCropRect!.height * ratio,
       );
       return cropRect;
     }

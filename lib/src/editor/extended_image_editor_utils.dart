@@ -362,8 +362,7 @@ class EditActionDetails {
 
 class EditorConfig {
   EditorConfig({
-    this.initialPosition,
-    this.initialSize,
+    this.initialCropRect,
     this.maxScale = 5.0,
     this.minScale = 0.0,
     this.cropRectPadding = const EdgeInsets.all(20.0),
@@ -394,11 +393,8 @@ class EditorConfig {
   /// How to behave during hit tests.
   final HitTestBehavior hitTestBehavior;
 
-  /// Initial position
-  final Offset? initialPosition;
-
-  /// Initial size
-  final Size? initialSize;
+  /// Initial crop
+  final Rect? initialCropRect;
 
   /// Max scale
   final double maxScale;

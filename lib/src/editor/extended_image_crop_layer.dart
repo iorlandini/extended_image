@@ -281,8 +281,8 @@ class ExtendedImageCropLayerState extends State<ExtendedImageCropLayer>
   }
 
   void moveUpdate(_MoveType moveType, Offset delta) {
-    ///don't resize it if initialSize is set
-    if ((widget.editorConfig.initialSize != null) &&
+    ///don't resize it if initialCropRect is set
+    if ((widget.editorConfig.initialCropRect != null) &&
         (widget.editorConfig.minScale != 0.0)) {
       return;
     }
