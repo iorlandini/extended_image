@@ -7,6 +7,7 @@ import 'package:extended_image_library/extended_image_library.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:throttling/throttling.dart';
 import '../extended_image.dart';
 import 'extended_image_crop_layer.dart';
 
@@ -36,10 +37,26 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
   double _detailsScale = 1.0;
   final GlobalKey<ExtendedImageCropLayerState> _layerKey =
       GlobalKey<ExtendedImageCropLayerState>();
+
+  Debouncing? _debouncing;
+  void _startDebouncing() {
+    if (_editorConfig!.cropIsChanged != null) {
+      _debouncing = Debouncing(duration: const Duration(milliseconds: 300));
+    }
+  }
+  void _stopDebouncing() => _debouncing?.close();
+
   @override
   void initState() {
     super.initState();
     _initGestureConfig();
+    _startDebouncing();
+  }
+
+  @override
+  void dispose() {
+    _stopDebouncing();
+    super.dispose();
   }
 
   void _initGestureConfig() {
@@ -271,6 +288,8 @@ class ExtendedImageEditorState extends State<ExtendedImageEditor> {
         _editorConfig!.editActionDetailsIsChanged?.call(_editActionDetails);
       });
     }
+
+    _debouncing?.debounce(() => _editorConfig!.cropIsChanged!());
   }
 
   void _handlePointerSignal(PointerSignalEvent event) {

@@ -503,8 +503,9 @@ class ExtendedImageCropLayerState extends State<ExtendedImageCropLayer>
     if (isAnimating) {
       return;
     }
-    _timer = Timer.periodic(
-        tickerDuration ?? widget.editorConfig.tickerDuration, (Timer timer) {
+    _timer =
+        Timer.periodic(tickerDuration ?? widget.editorConfig.tickerDuration,
+            (Timer timer) async {
       _timer?.cancel();
 
       //move to center
@@ -518,7 +519,9 @@ class ExtendedImageCropLayerState extends State<ExtendedImageCropLayer>
       _rectAnimation = _rectTweenController.drive<Rect?>(
           RectTween(begin: oldScreenCropRect, end: newScreenCropRect));
       _rectTweenController.reset();
-      _rectTweenController.forward();
+      await _rectTweenController.forward();
+
+      widget.editorConfig.cropIsChanged?.call();
     });
   }
 

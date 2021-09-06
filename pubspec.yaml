@@ -11,4 +11,4 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.1.8
-
+  throttling: ^1.0.0

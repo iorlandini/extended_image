@@ -381,6 +381,7 @@ class EditorConfig {
     this.speed = 1.0,
     this.hitTestBehavior = HitTestBehavior.deferToChild,
     this.editActionDetailsIsChanged,
+    this.cropIsChanged,
   })  : assert(lineHeight > 0.0),
         assert(hitTestSize > 0.0),
         assert(maxScale > 0.0),
@@ -448,6 +449,9 @@ class EditorConfig {
 
   /// Speed for zoom/pan
   final double speed;
+
+  /// Call when the crop rect animation is ended
+  final VoidCallback? cropIsChanged;
 }
 
 class CropAspectRatios {
